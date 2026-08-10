@@ -2,14 +2,12 @@ import os
 import asyncio
 import imageio_ffmpeg
 from aiohttp import web
-from pyrogram import Client, filters, idle
+from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
 from pytgcalls.types import MediaStream
 
-# ffmpeg path එක system එකට හඳුන්වා දීම 
 os.environ["PATH"] += os.pathsep + os.path.dirname(imageio_ffmpeg.get_ffmpeg_exe())
 
-# රහස්‍ය කේත 
 API_ID = int(os.environ.get("API_ID", 0))
 API_HASH = os.environ.get("API_HASH", "")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
@@ -33,7 +31,7 @@ async def auto_play_audio(client, message):
 async def handle(request):
     return web.Response(text="Music Bot is Running Successfully!")
 
-async def web_server():
+async def main():
     app = web.Application()
     app.router.add_get('/', handle)
     runner = web.AppRunner(app)
@@ -42,16 +40,13 @@ async def web_server():
     site = web.TCPSite(runner, '0.0.0.0', port)
     await site.start()
 
-async def main():
     await bot.start()
     await assistant.start()
     await call_py.start()
-    await web_server()
     print("Bot සාර්ථකව ක්‍රියාත්මක වේ!")
-    await idle()
+    
+    # සදාකාලිකව රන් වීමට ලූප් එකක් තැබීම
+    await asyncio.Event().wait()
 
 if __name__ == "__main__":
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-    loop.run_until_complete(main())
-
+    asyncio.run(main())
