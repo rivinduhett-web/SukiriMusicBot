@@ -1,5 +1,5 @@
-https://github.com/KurimuzonAkuma/pyrogram/archive/master.zip
-pytgcalls
+pyrogram==1.4.16
+pytgcalls==2.1.0
 TgCrypto
 aiohttp
 imageio-ffmpeg
