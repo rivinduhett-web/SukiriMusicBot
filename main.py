@@ -30,7 +30,6 @@ async def auto_play_audio(client, message):
     except Exception as e:
         await status_msg.edit_text(f"❌ *දෝෂයක් මතු විය:* `{e}`")
 
-# Render එක සඳහා Dummy Web Server එකක් සෑදීම
 async def handle(request):
     return web.Response(text="Music Bot is Running Successfully!")
 
@@ -47,10 +46,9 @@ async def main():
     await bot.start()
     await assistant.start()
     await call_py.start()
-    await web_server() # Web server එක පණගැන්වීම
+    await web_server()
     print("Bot සාර්ථකව ක්‍රියාත්මක වේ!")
     await idle()
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
-    loop.run_until_complete(main())
+    asyncio.run(main())
