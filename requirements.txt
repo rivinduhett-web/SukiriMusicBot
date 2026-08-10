@@ -1,5 +1,5 @@
-pyrogram
-py-tgcalls
+pyrogram==1.4.16
+pytgcalls==1.1.1
 TgCrypto
 aiohttp
 imageio-ffmpeg
