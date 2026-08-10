@@ -1,7 +1,5 @@
-pyrogram
+pyrogram==2.0.106
+pytgcalls==1.1.1
 TgCrypto
 aiohttp
 imageio-ffmpeg
-pytgcalls
-
-
