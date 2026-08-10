@@ -2,14 +2,6 @@ import os
 import asyncio
 import imageio_ffmpeg
 from aiohttp import web
-
-# Python 3.10+ වල get_event_loop දෝෂය සම්පූර්ණයෙන්ම වැළැක්වීම
-try:
-    asyncio.get_running_loop()
-except RuntimeError:
-    loop = asyncio.new_event_loop()
-    asyncio.set_event_loop(loop)
-
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
 from pytgcalls.types import MediaStream
@@ -55,5 +47,6 @@ async def main():
     await asyncio.Event().wait()
 
 if __name__ == "__main__":
-    loop = asyncio.get_event_loop()
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
     loop.run_until_complete(main())
