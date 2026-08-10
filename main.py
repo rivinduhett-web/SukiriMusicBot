@@ -2,6 +2,14 @@ import os
 import asyncio
 import imageio_ffmpeg
 from aiohttp import web
+
+# Python 3.10+ වල get_event_loop දෝෂය සම්පූර්ණයෙන්ම වැළැක්වීම
+try:
+    asyncio.get_running_loop()
+except RuntimeError:
+    loop = asyncio.new_event_loop()
+    asyncio.set_event_loop(loop)
+
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
 from pytgcalls.types import MediaStream
@@ -13,12 +21,8 @@ API_HASH = os.environ.get("API_HASH", "")
 BOT_TOKEN = os.environ.get("BOT_TOKEN", "")
 SESSION = os.environ.get("SESSION", "")
 
-# 3.10 හෝ ඊට වැඩි පයිතන් වර්ෂන් වලට ගැළපෙන පරිදි explicitly ලූප් එකක් සෑදීම
-loop = asyncio.new_event_loop()
-asyncio.set_event_loop(loop)
-
-bot = Client("MusicBot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN, sleep_threshold=180)
-assistant = Client("Assistant", api_id=API_ID, api_hash=API_HASH, session_string=SESSION, sleep_threshold=180)
+bot = Client("MusicBot", api_id=API_ID, api_hash=API_HASH, bot_token=BOT_TOKEN)
+assistant = Client("Assistant", api_id=API_ID, api_hash=API_HASH, session_string=SESSION)
 call_py = PyTgCalls(assistant)
 
 @bot.on_message(filters.audio & filters.group)
@@ -51,4 +55,5 @@ async def main():
     await asyncio.Event().wait()
 
 if __name__ == "__main__":
+    loop = asyncio.get_event_loop()
     loop.run_until_complete(main())
