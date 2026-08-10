@@ -4,7 +4,7 @@ import imageio_ffmpeg
 from aiohttp import web
 from pyrogram import Client, filters
 from pytgcalls import PyTgCalls
-from pytgcalls.types import MediaStream
+from pytgcalls.types.input_stream import AudioPiped
 
 os.environ["PATH"] += os.pathsep + os.path.dirname(imageio_ffmpeg.get_ffmpeg_exe())
 
@@ -24,7 +24,10 @@ async def auto_play_audio(client, message):
     try:
         file_path = await message.download()
         await status_msg.edit_text("🎵 *ගීතය Voice Chat එකෙහි Play වෙමින් පවතී!*")
-        await call_py.play(chat_id, MediaStream(file_path))
+        await call_py.join_group_call(
+            chat_id,
+            AudioPiped(file_path)
+        )
     except Exception as e:
         await status_msg.edit_text(f"❌ *දෝෂයක් මතු විය:* `{e}`")
 
