@@ -2,5 +2,4 @@ pyrogram
 TgCrypto
 aiohttp
 imageio-ffmpeg
-
-
+pytgcalls
