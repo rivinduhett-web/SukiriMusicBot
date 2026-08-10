@@ -1,5 +1,5 @@
-pyrogram-fork
-pytgcalls==3.0.0.dev24
+https://github.com/KurimuzonAkuma/pyrogram/archive/master.zip
+pytgcalls
 TgCrypto
 aiohttp
 imageio-ffmpeg
